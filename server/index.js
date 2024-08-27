@@ -11,8 +11,7 @@ import { ClerkExpressRequireAuth } from "@clerk/clerk-sdk-node";
 const port = process.env.PORT || 3000;
 const app = express();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+
 
 app.use(
   cors({
@@ -21,16 +20,7 @@ app.use(
   })
 );
 
-app.use(express.json());
 
-const connect = async () => {
-  try {
-    await mongoose.connect(process.env.MONGO);
-    console.log("Connected to MongoDB");
-  } catch (err) {
-    console.log(err);
-  }
-};
 
 const imagekit = new ImageKit({
   urlEndpoint: process.env.IMAGE_KIT_ENDPOINT,
@@ -153,14 +143,6 @@ app.post("/api/chats", ClerkExpressRequireAuth(), async (req, res) => {
     console.error(err.stack);
     res.status(401).send("Unauthenticated!");
   });
-  
-  // PRODUCTION
-  app.use(express.static(path.join(__dirname, "../client/dist")));
-  
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
-  });
-  
 
 app.listen(port, () => {
   connect();
