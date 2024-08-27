@@ -15,6 +15,7 @@
     "@clerk/clerk-sdk-node": "^5.0.30",
     "cors": "^2.8.5",
     "express": "^4.19.2",
+    "imagekit": "^5.1.0",
     "imagekitio-react": "^4.2.0",
     "mongoose": "^8.5.4",
     "nodemon": "^3.1.4"
